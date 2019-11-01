@@ -41,7 +41,7 @@
             </tr>
           <% schedule.forEach(function(game) { %>
             <tr>
-              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>"></td> <td align="center"><%= game.away %> at <%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>"></td>
+              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td align="center"><%= game.away %> at <%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
             </tr>
           <% }); %>
         </table><br>
