@@ -31,25 +31,35 @@ function game_list(games) {
   //console.log(schedule)
 }
 
-/* GET home page. */
+/* GET users listing. */
 router.get('/', function(req, res, next) {
-  //console.log(schedule);
-  res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week});
-});
-//{"0":"Arizona","1":"UCLA","2":"Illinois","3":"Indiana","4":"Purdue","5":"Maryland","6":"Wake Forest","7":"Syracuse","8":"Florida","9":"Florida State","10":"Washington","11":"Arkansas","12":"Georgia Tech","13":"Auburn","14":"South Carolina","15":"North Carolina","16":"USC","contender":"Chase"}
-router.post('/', function(request, response) {
+  var chase_picks;
+  var drew_picks;
+  var evan_picks;
+  var hunter_picks;
+  var shreve_picks;
   var database = firebase.database();
-  var picks = request.body;
-  var pick_object={}
-  for (var i = 0; i < count; i++) {
-    var pick=picks[i];
-    var new_pick_object={}
-    new_pick_object[i]=pick;
-    pick_object=Object.assign(pick_object,new_pick_object);
-  }
-  console.log(JSON.stringify(pick_object));
-  database.ref('season/' + season + '/contenders/' + picks["contender"]).set(pick_object);
-  response.redirect('/view-picks');
+  var chase=database.ref('season/' + season + '/contenders/' + 'Chase');
+  chase.on('value', function(snapshot) {
+    chase_picks=snapshot.val();
+  });
+  var drew=database.ref('season/' + season + '/contenders/' + 'Drew');
+  drew.on('value', function(snapshot) {
+    drew_picks=snapshot.val();
+  });
+  var evan=database.ref('season/' + season + '/contenders/' + 'Evan');
+  evan.on('value', function(snapshot) {
+    evan_picks=snapshot.val();
+  });
+  var hunter=database.ref('season/' + season + '/contenders/' + 'Hunter');
+  hunter.on('value', function(snapshot) {
+    hunter_picks=snapshot.val();
+  }); 
+  var shreve=database.ref('season/' + season + '/contenders/' + 'Shreve');
+  shreve.on('value', function(snapshot) {
+    shreve_picks=snapshot.val();
+  });
+  res.render('view-picks', { title: 'Welcome to the Pick Viewer', schedule:schedule, week:week, chase_picks:chase_picks, drew_picks:drew_picks, evan_picks:evan_picks, hunter_picks:hunter_picks, shreve_picks:shreve_picks});
 });
 
 module.exports = router;

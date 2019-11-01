@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+  </head>
+  <body style="background-color:#0099FF">
+    <div class="container" style="background-color:#FFFFFF;border-radius:25px">
+      <h1 align="center"><b><%= title %></b></h1>
+        <div class="container" align="center">
+              <h6 style="padding-left:12px;">Year&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Week</h6>
+              <select name="year">
+                <option>2019</option>
+              </select>
+              <select name="week">
+                <% for(var i=1; i<=15; i++){ %>
+                  <% if(i==10){ %>
+                    <option selected><%= i %></option>
+                  <% } else{ %>
+                    <option><%= i %></option>
+                  <% } %>
+                <% } %>
+              </select><br><br>
+              <table class="table table-hover table-striped">
+                <tr>
+                  <th><p align="center" style="margin:0">Game</p></th>
+                  <th><p align="center" style="margin:0">Chase</p></th>
+                  <th><p align="center" style="margin:0">Drew</p></th>
+                  <th><p align="center" style="margin:0">Evan</p></th>
+                  <th><p align="center" style="margin:0">Hunter</p></th>
+                  <th><p align="center" style="margin:0">Shreve</p></th>
+                </tr>
+                <% schedule.forEach(function(game) { %>
+                  <tr>
+                    <td align="center"><%= game.count %></td><td align="center"><%= chase_picks[game.count] %></td>
+                  </tr>
+                <% }); %>
+              </table>
+        </div>
+      </div>
+  </body>
+</html>
