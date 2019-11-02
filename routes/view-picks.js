@@ -51,6 +51,7 @@ function winner_check(games) {
       winners.push({'count':i,'winner':'Undecided'});
     }
   }
+  record_check();
 }
 
 /* GET users listing. */
