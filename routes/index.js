@@ -8,8 +8,8 @@ require('firebase/database');
 const request = require('request');
 var schedule=[];
 var count=0;
-var week=10;
-var year=2019;
+var week="10";
+var year="2019";
 var season=""+year+week;
 
 request('https://api.collegefootballdata.com/games?year=2019&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {

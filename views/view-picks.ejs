@@ -36,7 +36,7 @@
               </select>
               <select name="week">
                 <% for(var i=1; i<=15; i++){ %>
-                  <% if(i==10){ %>
+                  <% if(i==week){ %>
                     <option selected><%= i %></option>
                   <% } else{ %>
                     <option><%= i %></option>
@@ -47,15 +47,15 @@
               <table class="table table-hover table-striped thead-dark">
                 <thead class="thead-dark">
                   <tr>
-                    <th><p align="center" style="margin:0">Game</p></th>
-                    <th><p align="center" style="margin:0">Chase</p></th>
-                    <th><p align="center" style="margin:0">Drew</p></th>
-                    <th><p align="center" style="margin:0">Evan</p></th>
-                    <th><p align="center" style="margin:0">Hunter</p></th>
-                    <th><p align="center" style="margin:0">Shreve</p></th>
+                    <th><p align="center" style="margin:0">Game<br>(Record)</p></th>
+                    <th><p align="center" style="margin:0">Chase<br>(<%= chase_record.win %> - <%= chase_record.loss %>)</p></th>
+                    <th><p align="center" style="margin:0">Drew<br>(<%= drew_record.win %> - <%= drew_record.loss %>)</p></th>
+                    <th><p align="center" style="margin:0">Evan<br>(<%= evan_record.win %> - <%= evan_record.loss %>)</p></th>
+                    <th><p align="center" style="margin:0">Hunter<br>(<%= hunter_record.win %> - <%= hunter_record.loss %>)</p></th>
+                    <th><p align="center" style="margin:0">Shreve<br>(<%= shreve_record.win %> - <%= shreve_record.loss %>)</p></th>
                   </tr>
                 </thead>
-                <% schedule.forEach(function(game) { %>
+                <% winners.forEach(function(game) { %>
                   <tr>
                     <td align="center"><%= game.count %></td><td align="center"><%= chase_picks[game.count] %></td><td align="center"><%= drew_picks[game.count] %></td><td align="center"><%= evan_picks[game.count] %></td><td align="center"><%= hunter_picks[game.count] %></td><td align="center"><%= shreve_picks[game.count] %></td>
                   </tr>
