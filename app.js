@@ -8,7 +8,9 @@ var firebase = require("firebase/app");
 require('firebase/database');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var viewPicksRouter = require('./routes/view-picks')
+var viewPicksRouter = require('./routes/view-picks');
+var favicon = require('serve-favicon');
+var path = require('path');
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -40,6 +42,7 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'images/favicon.ico')))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

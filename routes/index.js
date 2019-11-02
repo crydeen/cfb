@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var firebase = require("firebase/app");
+var favicon = require('serve-favicon');
+var path = require('path');
 require('firebase/database');
 
 const request = require('request');
