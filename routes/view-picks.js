@@ -9,7 +9,7 @@ const request = require('request');
 var schedule=[];
 var winners=[];
 var count=0;
-var week="10";
+var week="11";
 var year="2019";
 var season=""+year+week;
 var all_games=[];
@@ -232,5 +232,20 @@ function record_check() {
   database.ref('season/' + season + '/contenders/' + 'Hunter_Record').set(hunter_record);
   database.ref('season/' + season + '/contenders/' + 'Shreve_Record').set(shreve_record);
 }
+
+router.post('/', function(request, response) {
+  var database = firebase.database();
+  var picks = request.body;
+  var pick_object={}
+  for (var i = 0; i < count; i++) {
+    var pick=picks[i];
+    var new_pick_object={}
+    new_pick_object[i]=pick;
+    pick_object=Object.assign(pick_object,new_pick_object);
+  }
+  console.log(JSON.stringify(pick_object));
+  database.ref('season/' + season + '/contenders/' + picks["contender"]).set(pick_object);
+  response.redirect('/view-picks');
+});
 
 module.exports = router;
