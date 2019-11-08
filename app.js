@@ -9,6 +9,8 @@ require('firebase/database');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var viewPicksRouter = require('./routes/view-picks');
+var ranksRouter = require('./routes/ranks');
+var accountRouter = require('./routes/account');
 var favicon = require('serve-favicon');
 var path = require('path');
 
@@ -47,6 +49,8 @@ app.use(favicon(path.join(__dirname, 'public', 'images/favicon.ico')))
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/view-picks', viewPicksRouter);
+app.use('/ranks', ranksRouter);
+app.use('/account', accountRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

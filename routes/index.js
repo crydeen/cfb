@@ -49,7 +49,6 @@ router.post('/', function(request, response) {
     new_pick_object[i]=pick;
     pick_object=Object.assign(pick_object,new_pick_object);
   }
-  console.log(JSON.stringify(pick_object));
   database.ref('season/' + season + '/contenders/' + picks["contender"]).set(pick_object);
   response.redirect('/view-picks');
 });

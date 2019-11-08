@@ -123,7 +123,7 @@ router.get('/', function(req, res, next) {
     }
   });
   record_check();
-  res.render('view-picks', { title: 'Welcome to the Pick Viewer', winners:winners, week:week, chase_picks:chase_picks, drew_picks:drew_picks, evan_picks:evan_picks, hunter_picks:hunter_picks, shreve_picks:shreve_picks, chase_record:chase_record, drew_record:drew_record, evan_record:evan_record, hunter_record:hunter_record, shreve_record:shreve_record});
+  res.render('view-picks', { title: 'Pick Viewer', winners:winners, week:week, chase_picks:chase_picks, drew_picks:drew_picks, evan_picks:evan_picks, hunter_picks:hunter_picks, shreve_picks:shreve_picks, chase_record:chase_record, drew_record:drew_record, evan_record:evan_record, hunter_record:hunter_record, shreve_record:shreve_record});
 });
 
 function record_check() {
@@ -226,11 +226,11 @@ function record_check() {
     }
   }
   var database = firebase.database();
-  database.ref('season/' + season + '/contenders/' + 'Chase_Record').set(chase_record);
-  database.ref('season/' + season + '/contenders/' + 'Drew_Record').set(drew_record);
-  database.ref('season/' + season + '/contenders/' + 'Evan_Record').set(evan_record);
-  database.ref('season/' + season + '/contenders/' + 'Hunter_Record').set(hunter_record);
-  database.ref('season/' + season + '/contenders/' + 'Shreve_Record').set(shreve_record);
+  database.ref('season/records/' + season + '/Chase').set(chase_record);
+  database.ref('season/records/' + season + '/Drew').set(drew_record);
+  database.ref('season/records/' + season + '/Evan').set(evan_record);
+  database.ref('season/records/' + season + '/Hunter').set(hunter_record);
+  database.ref('season/records/' + season + '/Shreve').set(shreve_record);
 }
 
 router.post('/', function(request, response) {
