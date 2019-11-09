@@ -47,16 +47,19 @@ router.post('/', function(request, response) {
     response.addTrailers({ 'Content-MD5': '7895bf4b8828b55ceaf47747b4bca667' });
     response.render('index', { title: "You've failed the show, pick your player", schedule:schedule, week:week, red:red})
   }
-  var database = firebase.database();
-  var pick_object={}
-  for (var i = 0; i < count; i++) {
-    var pick=picks[i];
-    var new_pick_object={}
-    new_pick_object[i]=pick;
-    pick_object=Object.assign(pick_object,new_pick_object);
+  else {
+    var database = firebase.database();
+    var pick_object={}
+    for (var i = 0; i < count; i++) {
+      var pick=picks[i];
+      var new_pick_object={}
+      new_pick_object[i]=pick;
+      pick_object=Object.assign(pick_object,new_pick_object);
+    }
+    database.ref('season/' + season + '/contenders/' + picks["contender"]).set(pick_object);
+    response.redirect('/view-picks');
   }
-  database.ref('season/' + season + '/contenders/' + picks["contender"]).set(pick_object);
-  response.redirect('/view-picks');
+
 });
 
 module.exports = router;
