@@ -11,6 +11,7 @@ var count=0;
 var week="11";
 var year="2019";
 var season=""+year+week;
+var red = false;
 
 request('https://api.collegefootballdata.com/games?year=2019&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
@@ -35,13 +36,18 @@ function game_list(games) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  //console.log(schedule);
-  res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week});
+  red=false
+  res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week, red:red});
 });
 //{"0":"Arizona","1":"UCLA","2":"Illinois","3":"Indiana","4":"Purdue","5":"Maryland","6":"Wake Forest","7":"Syracuse","8":"Florida","9":"Florida State","10":"Washington","11":"Arkansas","12":"Georgia Tech","13":"Auburn","14":"South Carolina","15":"North Carolina","16":"USC","contender":"Chase"}
 router.post('/', function(request, response) {
-  var database = firebase.database();
   var picks = request.body;
+  if (picks['contender'] == '') {
+    red = true
+    response.addTrailers({ 'Content-MD5': '7895bf4b8828b55ceaf47747b4bca667' });
+    response.render('index', { title: "You've failed the show, pick your player", schedule:schedule, week:week, red:red})
+  }
+  var database = firebase.database();
   var pick_object={}
   for (var i = 0; i < count; i++) {
     var pick=picks[i];
