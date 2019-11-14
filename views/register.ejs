@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+    <title>CFB PickEm</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="/javascripts/scripts.js"></script>
+  </head>
+  <body style="background-color:#000000;padding-top:0;padding-left:0;padding-right:0;font-family: 'Roboto Slab', serif;">
+
+      <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-dark main-nav navbar-expand" id="mobile">
+        <ul class="nav navbar-nav" style="height:3rem;padding-top:0;">
+            <li class="nav-item">
+              <a href="/login" class="nav-link" style="padding:0;visibility:hidden;">
+                <p align="center"><i class="material-icons" style="font-size:48px;" align="center">close</i></p>
+              </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav mx-auto">
+            <li class="nav-item">
+              <a href="/" class="nav-link" style="padding:0;">
+                <span class="nav-link" href="/login" style="padding-top:4px;padding-left:12px;padding-right:12px;font-size:32px;font-family:Collegiate;width:80px;">CFB</span>
+              </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav" style="height:3rem;padding-top:0;">
+            <li class="nav-item">
+              <a href="/login" class="nav-link" style="padding:0;">
+                <p align="center" style="margin:0;"><i class="material-icons" style="font-size:48px;" align="center">close</i></p>
+              </a>
+            </li>
+        </ul>
+      </nav>
+      <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav" id="desktop">
+        <ul class="nav navbar-nav" style="height:3rem;padding-top:0;">
+            <li class="nav-item">
+              <a href="/login" class="nav-link" style="padding:0;visibility:hidden;">
+                <p align="center"><i class="material-icons" style="font-size:48px;" align="center">close</i></p>
+              </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav mx-auto">
+            <li class="nav-item">
+              <a href="/" class="nav-link" style="padding:0;">
+                <span class="nav-link" href="/" style="padding-top:0px;padding-left:30px;padding-right:30px;font-size:48px;font-family:Collegiate;">CFB</span>
+              </a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav" style="height:3rem;padding-top:0;">
+            <li class="nav-item">
+              <a href="/login" class="nav-link" style="padding:0;">
+                <p align="center" style="margin:0;"><i class="material-icons" style="font-size:48px;" align="center">close</i></p>
+              </a>
+            </li>
+        </ul>
+      </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Register</h5>
+            <% if (failed) { %>
+              <p style="color:red;font-size:10px;" align="center">Password longer than 8 characters please, do better friend.</p>
+            <% } %>
+            <form class="form-signin" method="post" action="/register">
+              <div class="form-label-group">
+                <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+                <label for="inputEmail">Email address</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+                <label for="inputConfirmPassword">Confirm Password</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="text" name="firstName" class="form-control" placeholder="First Name" required>
+                <label for="inputName">First Name</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="text" name="asl" class="form-control" placeholder="First Name" required>
+                <label for="inputName">ASL</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="text" name="zodiac" class="form-control" placeholder="First Name" required>
+                <label for="inputName">Zodiac Sign</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="text" name="neopet" class="form-control" placeholder="First Name" required>
+                <label for="inputName">Neopet</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="text" name="mixtape" class="form-control" placeholder="First Name" required>
+                <label for="inputName">Favorite Mixtape</label>
+              </div>
+
+              <!-- <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button> -->
+              <input type="submit" value="Register" class="btn btn-lg btn-primary btn-block text-uppercase">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

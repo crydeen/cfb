@@ -7,10 +7,11 @@ var sassMiddleware = require('node-sass-middleware');
 var firebase = require("firebase/app");
 require('firebase/database');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var viewPicksRouter = require('./routes/view-picks');
 var ranksRouter = require('./routes/ranks');
 var accountRouter = require('./routes/account');
+var loginRouter = require('./routes/login');
+var registerRouter = require('./routes/register');
 var favicon = require('serve-favicon');
 var path = require('path');
 
@@ -47,10 +48,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images/favicon.ico')))
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/view-picks', viewPicksRouter);
 app.use('/ranks', ranksRouter);
 app.use('/account', accountRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
