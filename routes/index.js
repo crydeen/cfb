@@ -12,6 +12,7 @@ var week="12";
 var year="2019";
 var season=""+year+week;
 var name='';
+var red = false;
 var isLoggedIn=false;
 
 request('https://api.collegefootballdata.com/games?year=2019&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
@@ -37,25 +38,30 @@ function game_list(games) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    isLoggedIn=true
-    name=user.displayName
-    res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week, name:name, isLoggedIn:isLoggedIn});
-  } else {
-    isLoggedIn=false
-    name='Chaos'
-    res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week, name:name, isLoggedIn:isLoggedIn});
-    //res.render('login', { failed:false});
-  }
-});
+  red=false
+  res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week, red:red});
+//   firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     isLoggedIn=true
+//     name=user.displayName
+//     res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week, name:name, isLoggedIn:isLoggedIn});
+//   } else {
+//     isLoggedIn=false
+//     name='Chaos'
+//     res.render('index', { title: 'Welcome to the Hecking Show', schedule:schedule, week:week, name:name, isLoggedIn:isLoggedIn});
+//     //res.render('login', { failed:false});
+//   }
+// });
 });
 //{"0":"Arizona","1":"UCLA","2":"Illinois","3":"Indiana","4":"Purdue","5":"Maryland","6":"Wake Forest","7":"Syracuse","8":"Florida","9":"Florida State","10":"Washington","11":"Arkansas","12":"Georgia Tech","13":"Auburn","14":"South Carolina","15":"North Carolina","16":"USC","contender":"Chase"}
 router.post('/', function(request, response) {
   var picks = request.body;
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log(user.displayName);
+  if (picks['contender'] == '') {
+    red = true
+    response.addTrailers({ 'Content-MD5': '7895bf4b8828b55ceaf47747b4bca667' });
+    response.render('index', { title: "You've failed the show, pick your player", schedule:schedule, week:week, red:red})
+  }
+  else {
     var database = firebase.database();
     var pick_object={}
     for (var i = 0; i < count; i++) {
@@ -64,12 +70,26 @@ router.post('/', function(request, response) {
       new_pick_object[i]=pick;
       pick_object=Object.assign(pick_object,new_pick_object);
     }
-    database.ref('season/' + season + '/contenders/' + user.displayName).set(pick_object);
+    database.ref('season/' + season + '/contenders/' + picks["contender"]).set(pick_object);
     response.redirect('/view-picks');
-  } else {
-    response.render('index', { title: "You've failed the show, login at the bottom", schedule:schedule, week:week, red:red})
-  }
-});
+    }
+//   firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     console.log(user.displayName);
+//     var database = firebase.database();
+//     var pick_object={}
+//     for (var i = 0; i < count; i++) {
+//       var pick=picks[i];
+//       var new_pick_object={}
+//       new_pick_object[i]=pick;
+//       pick_object=Object.assign(pick_object,new_pick_object);
+//     }
+//     database.ref('season/' + season + '/contenders/' + user.displayName).set(pick_object);
+//     response.redirect('/view-picks');
+//   } else {
+//     response.render('index', { title: "You've failed the show, login at the bottom", schedule:schedule, week:week, red:red})
+//   }
+// });
 
 });
 
