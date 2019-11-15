@@ -32,8 +32,8 @@ request('https://api.collegefootballdata.com/games?year=2019&week='+week+'&seaso
 function winner_check(games) {
   for (var key in games) {
     if (games.hasOwnProperty(key)) {
-        if ((games[key].home_conference=="SEC" | games[key].home_conference=="Pac-12" | games[key].home_conference=="Big Ten" | games[key].home_conference=="ACC" | games[key].home_conference=="Big-12") &
-      (games[key].away_conference=="SEC" | games[key].away_conference=="Pac-12" | games[key].away_conference=="Big Ten" | games[key].away_conference=="ACC" | games[key].away_conference=="Big-12")) {
+        if ((games[key].home_conference=="SEC" | games[key].home_conference=="Pac-12" | games[key].home_conference=="Big Ten" | games[key].home_conference=="ACC" | games[key].home_conference=="Big 12") &
+      (games[key].away_conference=="SEC" | games[key].away_conference=="Pac-12" | games[key].away_conference=="Big Ten" | games[key].away_conference=="ACC" | games[key].away_conference=="Big 12")) {
           //var temp={'home_team':games[key].home_team,'home_points':games[key].home_points,'away_team':games[key].away_team,'away_points':games[key].away_points}
           all_games.push({'count':count,'home_team':games[key].home_team,'home_points':games[key].home_points,'away_team':games[key].away_team,'away_points':games[key].away_points})
           count++;
