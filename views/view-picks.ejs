@@ -116,9 +116,14 @@
                     <th><p align="center" style="margin:0">Shreve<br>(<%= shreve_record.win %> - <%= shreve_record.loss %>)</p></th>
                   </tr>
                 </thead>
-                <% winners.forEach(function(game) { %>
+                <% winners.forEach(function(game) { console.log(chase_picks[game.count] + " " +game.winner) %>
                   <tr>
-                    <td align="center"><%= game.count %></td><td align="center"><%= chase_picks[game.count] %></td><td align="center"><%= drew_picks[game.count] %></td><td align="center"><%= evan_picks[game.count] %></td><td align="center"><%= hunter_picks[game.count] %></td><td align="center"><%= shreve_picks[game.count] %></td>
+                    <td align="center"><%= game.count %></td>
+                    <td align="center"><%= chase_picks[game.count] %></td>
+                    <td align="center"><%= drew_picks[game.count] %></td>
+                    <td align="center"><%= evan_picks[game.count] %></td>
+                    <td align="center"><%= hunter_picks[game.count] %></td>
+                    <td align="center"><%= shreve_picks[game.count] %></td>
                   </tr>
                 <% }); %>
               </table>
