@@ -8,14 +8,14 @@ require('firebase/database');
 const request = require('request');
 var schedule=[];
 var count=0;
-var week="15";
-var year="2019";
+var week="3";
+var year="2020";
 var season=""+year+week;
 var name='';
 var red = false;
 var isLoggedIn=false;
 
-request('https://api.collegefootballdata.com/games?year=2019&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+request('https://api.collegefootballdata.com/games?year=2020&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
   game_list(body);
 });
