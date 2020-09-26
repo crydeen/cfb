@@ -8,7 +8,7 @@ require('firebase/database');
 const request = require('request');
 var schedule=[];
 var count=0;
-var week="3";
+var week="4";
 var year="2020";
 var season=""+year+week;
 var name='';
