@@ -9,8 +9,8 @@ const request = require('request');
 var schedule=[];
 var winners=[];
 var count=0;
-var week="15";
-var year="2019";
+var week="3";
+var year="2020";
 var season=""+year+week;
 var all_games=[];
 var chase_picks={};
@@ -24,7 +24,7 @@ var evan_record={'win':0,'loss':0};
 var hunter_record={'win':0,'loss':0};
 var shreve_record={'win':0,'loss':0};
 
-request('https://api.collegefootballdata.com/games?year=2019&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+request('https://api.collegefootballdata.com/games?year=2020&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
   winner_check(body);
 });
