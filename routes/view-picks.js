@@ -126,6 +126,7 @@ router.get('/', function(req, res, next) {
   res.render('view-picks', { title: 'Pick Viewer', winners:winners, week:week, chase_picks:chase_picks, drew_picks:drew_picks, evan_picks:evan_picks, hunter_picks:hunter_picks, shreve_picks:shreve_picks, chase_record:chase_record, drew_record:drew_record, evan_record:evan_record, hunter_record:hunter_record, shreve_record:shreve_record});
 });
 
+/* Record Check Function. */
 function record_check() {
   chase_record={'win':0,'loss':0};
   drew_record={'win':0,'loss':0};
