@@ -112,13 +112,15 @@
             <thead class="thead-dark">
               <tr>
                 <th><p align="center" style="margin:0">Away</p></th>
+                <th><p align="center" style="margin:0"></p></th>
                 <th><p align="center" style="margin:0">Matchup</p></th>
+                <th><p align="center" style="margin:0"></p></th>
                 <th><p align="center" style="margin:0">Home</p></th>
               </tr>
             </thead>
           <% schedule.forEach(function(game) { %>
             <tr>
-              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td align="center"><%= game.away %> at <%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
+              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td align="right" style="padding-left:4rem;"><sup><em style="font-size:0.6rem"><%= game.awayRank %></em></sup> <%= game.away %></td> <td align="center">at<br><em style="font-size:0.75rem;"><%= game.formattedSpread %></em></td> <td align="left" style="padding-right:4rem;"> <sup><em style="font-size:0.6rem;"><%= game.homeRank %></em></sup>&nbsp;<%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
             </tr>
           <% }); %>
         </table>

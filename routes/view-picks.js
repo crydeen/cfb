@@ -9,7 +9,7 @@ const request = require('request');
 var schedule=[];
 var winners=[];
 var count=0;
-var week="5";
+var week="6";
 var year="2020";
 var season=""+year+week;
 var all_games=[];
@@ -24,7 +24,7 @@ var evan_record={'win':0,'loss':0};
 var hunter_record={'win':0,'loss':0};
 var shreve_record={'win':0,'loss':0};
 
-request('https://api.collegefootballdata.com/games?year=2020&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+request('https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
   winner_check(body);
 });
@@ -32,24 +32,42 @@ request('https://api.collegefootballdata.com/games?year=2020&week='+week+'&seaso
 function winner_check(games) {
   for (var key in games) {
     if (games.hasOwnProperty(key)) {
-        if ((games[key].home_conference=="SEC" | games[key].home_conference=="Pac-12" | games[key].home_conference=="Big Ten" | games[key].home_conference=="ACC" | games[key].home_conference=="Big 12") &
-      (games[key].away_conference=="SEC" | games[key].away_conference=="Pac-12" | games[key].away_conference=="Big Ten" | games[key].away_conference=="ACC" | games[key].away_conference=="Big 12")) {
+        if ((games[key].homeConference=="SEC" | games[key].homeConference=="Pac-12" | games[key].homeConference=="Big Ten" | games[key].homeConference=="ACC" | games[key].homeConference=="Big 12") &
+      (games[key].awayConference=="SEC" | games[key].awayConference=="Pac-12" | games[key].awayConference=="Big Ten" | games[key].awayConference=="ACC" | games[key].awayConference=="Big 12")) {
           //var temp={'home_team':games[key].home_team,'home_points':games[key].home_points,'away_team':games[key].away_team,'away_points':games[key].away_points}
-          all_games.push({'count':count,'home_team':games[key].home_team,'home_points':games[key].home_points,'away_team':games[key].away_team,'away_points':games[key].away_points})
+          var caesar = games[key].lines.find(obj => {
+            return obj.provider === "Caesars"
+          })
+          all_games.push({'count':count,'homeTeam':games[key].homeTeam,'homeScore':games[key].homeScore,'awayTeam':games[key].awayTeam,'awayScore':games[key].awayScore,'spread':caesar.spread})
           count++;
         }
     }
   }
+  // if home team is favored, spread is negative
+  // home: State    away: Arkansas    Spread: -17
   for (var i = 0; i < count; i++) {
-    if (all_games[i].away_points > all_games[i].home_points) {
-      winners.push({'count':i,'winner':all_games[i].away_team});
+    // if (all_games[i].spread < 4) {
+    //   if (parseFloat(all_games[i].awayScore) > parseFloat(all_games[i].homeScore)) {
+    //     winners.push({'count':i,'winner':all_games[i].awayTeam});
+    //   }
+    //   else if (parseFloat(all_games[i].homeScore) > parseFloat(all_games[i].awayScore)) {
+    //     winners.push({'count':i,'winner':all_games[i].homeTeam});
+    //   }
+    //   else {
+    //     winners.push({'count':i,'winner':'Undecided'});
+    //   }
+    // }
+
+    if (parseFloat(all_games[i].awayScore) > parseFloat(all_games[i].homeScore) + parseFloat(all_games[i].spread)) {
+      winners.push({'count':i,'winner':all_games[i].awayTeam});
     }
-    else if (all_games[i].home_points > all_games[i].away_points) {
-      winners.push({'count':i,'winner':all_games[i].home_team});
+    else if (parseFloat(all_games[i].homeScore) + parseFloat(all_games[i].spread) > parseFloat(all_games[i].awayScore)) {
+      winners.push({'count':i,'winner':all_games[i].homeTeam});
     }
     else {
       winners.push({'count':i,'winner':'Undecided'});
     }
+
   }
   record_check();
 }

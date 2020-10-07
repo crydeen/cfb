@@ -6,29 +6,72 @@ var path = require('path');
 require('firebase/database');
 
 const request = require('request');
-var schedule=[];
-var count=0;
-var week="5";
-var year="2020";
-var season=""+year+week;
-var name='';
+var schedule = [];
+var count = 0;
+var week = "6";
+var year = "2020";
+var season = ""+year+week;
+var name = '';
 var red = false;
 var isLoggedIn=false;
+var rankings = [];
 
-request('https://api.collegefootballdata.com/games?year=2020&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+request('https://api.collegefootballdata.com/rankings?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+  if (err) { return console.log(err); }
+  rank_parse(body);
+});
+
+request('https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
   game_list(body);
 });
+
+function rank_parse(ranks) {
+  for (var key in ranks) {
+    if (ranks.hasOwnProperty(key)) {
+      // console.log(key + " -> " + JSON.stringify(ranks[key]));
+      ap_rankings = ranks[key].polls.find(obj => {
+         return obj.poll === "AP Top 25"
+      })
+      console.log(key + " -> " + JSON.stringify(ap_rankings));
+    }
+  }
+}
 
 function game_list(games) {
   for (var key in games) {
     if (games.hasOwnProperty(key)) {
         //console.log(key + " -> " + JSON.stringify(games[key]));
         //console.log(key + " -> " + games[key].home_team);
-        if ((games[key].home_conference=="SEC" | games[key].home_conference=="Pac-12" | games[key].home_conference=="Big Ten" | games[key].home_conference=="ACC" | games[key].home_conference=="Big 12") &
-      (games[key].away_conference=="SEC" | games[key].away_conference=="Pac-12" | games[key].away_conference=="Big Ten" | games[key].away_conference=="ACC" | games[key].away_conference=="Big 12")) {
+        if ((games[key].homeConference=="SEC" | games[key].homeConference=="Pac-12" | games[key].homeConference=="Big Ten" | games[key].homeConference=="ACC" | games[key].homeConference=="Big 12") &
+      (games[key].awayConference=="SEC" | games[key].awayConference=="Pac-12" | games[key].awayConference=="Big Ten" | games[key].awayConference=="ACC" | games[key].awayConference=="Big 12")) {
           //console.log(key + " -> " + games[key].away_team + " at " + games[key].home_team);
-          schedule.push({'count':count,'away':games[key].away_team,'home':games[key].home_team});
+          var caesar = games[key].lines.find(obj => {
+            return obj.provider === "Caesars"
+          })
+
+          var awayRank = ap_rankings.ranks.find(obj => {
+            return obj.school === games[key].awayTeam
+          })
+
+          var homeRank = ap_rankings.ranks.find(obj => {
+            return obj.school === games[key].homeTeam
+          })
+
+          if (awayRank !== undefined) {
+            awayRank = awayRank.rank;
+          }
+
+          if (homeRank !== undefined) {
+            homeRank = homeRank.rank;
+          }
+
+          var math = parseFloat(caesar.spread) + 4
+
+          console.log("Spread: " + caesar.spread + " Math result " + math)
+
+          //console.log("Trying to grab Caesars" + result.provider + " " + result.spread)
+          schedule.push({'count':count,'away':games[key].awayTeam,'awayRank':awayRank,'home':games[key].homeTeam,'homeRank':homeRank,'spread':caesar.spread,'formattedSpread':caesar.formattedSpread});
           count++;
         }
     }
