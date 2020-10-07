@@ -93,7 +93,7 @@
         <h1 align="center" style="padding-top:10px;padding-bottom:10px;color:red;"><b><%= title %></b></h1>
       <% } %>
       <h6 align="center">May the CFB Gods be Forever in Your favor</h6>
-        <div class="container" align="center" style="padding-top:0;padding-bottom:0;padding-bottom:10px;">
+        <div class="container" align="center" style="padding: 0 5px;">
           <form method="post" action="/">
             <div align="center" style="padding-top:25px;;padding-bottom:25px;">
               <h6>Choose your Fighter</h6>
@@ -111,16 +111,16 @@
           <table class="table table-hover table-striped thead-dark">
             <thead class="thead-dark">
               <tr>
-                <th><p align="center" style="margin:0">Away</p></th>
+                <th><p align="center" style="margin:0"></p></th>
                 <th><p align="center" style="margin:0"></p></th>
                 <th><p align="center" style="margin:0">Matchup</p></th>
                 <th><p align="center" style="margin:0"></p></th>
-                <th><p align="center" style="margin:0">Home</p></th>
+                <th><p align="center" style="margin:0"></p></th>
               </tr>
             </thead>
           <% schedule.forEach(function(game) { %>
             <tr>
-              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td align="right" style="padding-left:4rem;"><sup><em style="font-size:0.6rem"><%= game.awayRank %></em></sup> <%= game.away %></td> <td align="center">at<br><em style="font-size:0.75rem;"><%= game.formattedSpread %></em></td> <td align="left" style="padding-right:4rem;"> <sup><em style="font-size:0.6rem;"><%= game.homeRank %></em></sup>&nbsp;<%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
+              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td align="right"><sup><em style="font-size:0.5rem"><%= game.awayRank %></em></sup> <%= game.away %></td> <td align="center">at<br><em style="font-size:0.75rem;"><%= game.formattedSpread %></em></td> <td align="left"> <sup><em style="font-size:0.5rem;"><%= game.homeRank %></em></sup>&nbsp;<%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
             </tr>
           <% }); %>
         </table>
