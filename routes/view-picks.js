@@ -9,7 +9,7 @@ const request = require('request');
 var schedule=[];
 var winners=[];
 var count=0;
-var week="5";
+var week="6";
 var year="2020";
 var season=""+year+week;
 var all_games=[];
@@ -36,7 +36,7 @@ function winner_check(games) {
       (games[key].awayConference=="SEC" | games[key].awayConference=="Pac-12" | games[key].awayConference=="Big Ten" | games[key].awayConference=="ACC" | games[key].awayConference=="Big 12")) {
           //var temp={'home_team':games[key].home_team,'home_points':games[key].home_points,'away_team':games[key].away_team,'away_points':games[key].away_points}
           var caesar = games[key].lines.find(obj => {
-            return obj.provider === "Caesars"
+            return obj.provider === "Bovada"
           })
           all_games.push({'count':count,'homeTeam':games[key].homeTeam,'homeScore':games[key].homeScore,'awayTeam':games[key].awayTeam,'awayScore':games[key].awayScore,'spread':caesar.spread})
           count++;

@@ -8,7 +8,7 @@ require('firebase/database');
 const request = require('request');
 var schedule = [];
 var count = 0;
-var week = "5";
+var week = "6";
 var year = "2020";
 var season = ""+year+week;
 var name = '';
@@ -47,7 +47,7 @@ function game_list(games) {
       (games[key].awayConference=="SEC" | games[key].awayConference=="Pac-12" | games[key].awayConference=="Big Ten" | games[key].awayConference=="ACC" | games[key].awayConference=="Big 12")) {
           //console.log(key + " -> " + games[key].away_team + " at " + games[key].home_team);
           var caesar = games[key].lines.find(obj => {
-            return obj.provider === "Caesars"
+            return obj.provider === "Bovada"
           })
 
           var awayRank = ap_rankings.ranks.find(obj => {

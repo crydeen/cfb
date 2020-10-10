@@ -1,6 +1,5 @@
 body {
-  font-family: 'Roboto Slab', serif;
-  font-size: 0.75rem; }
+  font-family: 'Roboto Slab', serif; }
 
 a {
   color: #00B7FF; }
@@ -34,7 +33,7 @@ nav {
 
 @media only screen and (max-width: 600px) {
   .card-signin .card-body {
-    padding: 0.25rem; }
+    padding: 1rem; }
   #desktop {
     display: none; } }
 
