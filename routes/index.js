@@ -19,11 +19,10 @@ var ap_rankings;
 request('https://api.collegefootballdata.com/rankings?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
   rank_parse(body);
-});
-
-request('https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
-  if (err) { return console.log(err); }
-  game_list(body);
+  request('https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+    game_list(body);
+  });
 });
 
 function rank_parse(ranks) {

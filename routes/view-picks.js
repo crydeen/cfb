@@ -59,9 +59,11 @@ function winner_check(games) {
     // }
 
     if (parseFloat(all_games[i].awayScore) > parseFloat(all_games[i].homeScore) + parseFloat(all_games[i].spread)) {
+      console.log("Away Win " + count + " " + all_games[i].awayTeam)
       winners.push({'count':i,'winner':all_games[i].awayTeam});
     }
     else if (parseFloat(all_games[i].homeScore) + parseFloat(all_games[i].spread) > parseFloat(all_games[i].awayScore)) {
+      console.log("Away Win " + count + " " + all_games[i].homeTeam)
       winners.push({'count':i,'winner':all_games[i].homeTeam});
     }
     else {
