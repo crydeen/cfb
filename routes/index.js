@@ -14,7 +14,7 @@ var season = ""+year+week;
 var name = '';
 var red = false;
 var isLoggedIn=false;
-var rankings = [];
+var ap_rankings;
 
 request('https://api.collegefootballdata.com/rankings?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
@@ -30,10 +30,11 @@ function rank_parse(ranks) {
   for (var key in ranks) {
     if (ranks.hasOwnProperty(key)) {
       // console.log(key + " -> " + JSON.stringify(ranks[key]));
+      console.log(key + " -> " + JSON.stringify(ranks[key]));
       ap_rankings = ranks[key].polls.find(obj => {
          return obj.poll === "AP Top 25"
       })
-      console.log(key + " -> " + JSON.stringify(ap_rankings));
+
     }
   }
 }
@@ -66,9 +67,9 @@ function game_list(games) {
             homeRank = homeRank.rank;
           }
 
-          var math = parseFloat(caesar.spread) + 4
+          //var math = parseFloat(caesar.spread) + 4
 
-          console.log("Spread: " + caesar.spread + " Math result " + math)
+          //console.log("Spread: " + caesar.spread + " Math result " + math)
 
           //console.log("Trying to grab Caesars" + result.provider + " " + result.spread)
           schedule.push({'count':count,'away':games[key].awayTeam,'awayRank':awayRank,'home':games[key].homeTeam,'homeRank':homeRank,'spread':caesar.spread,'formattedSpread':caesar.formattedSpread});
