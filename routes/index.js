@@ -8,7 +8,7 @@ require('firebase/database');
 const request = require('request');
 var schedule = [];
 var count = 0;
-var week = "8";
+var week = "12";
 var year = "2020";
 var season = ""+year+week;
 var name = '';
@@ -46,7 +46,7 @@ function game_list(games) {
         if ((games[key].homeConference=="SEC" | games[key].homeConference=="Pac-12" | games[key].homeConference=="Big Ten" | games[key].homeConference=="ACC" | games[key].homeConference=="Big 12") &
       (games[key].awayConference=="SEC" | games[key].awayConference=="Pac-12" | games[key].awayConference=="Big Ten" | games[key].awayConference=="ACC" | games[key].awayConference=="Big 12")) {
           //console.log(key + " -> " + games[key].away_team + " at " + games[key].home_team);
-          var caesar = games[key].lines.find(obj => {
+          var spread = games[key].lines.find(obj => {
             return obj.provider === "Bovada"
           })
 
@@ -71,7 +71,13 @@ function game_list(games) {
           //console.log("Spread: " + caesar.spread + " Math result " + math)
 
           //console.log("Trying to grab Caesars" + result.provider + " " + result.spread)
-          schedule.push({'count':count,'away':games[key].awayTeam,'awayRank':awayRank,'home':games[key].homeTeam,'homeRank':homeRank,'spread':caesar.spread,'formattedSpread':caesar.formattedSpread});
+          //console.log(spread);
+          if (spread==undefined) {
+            continue;
+          }
+          else {
+            schedule.push({'count':count,'away':games[key].awayTeam,'awayRank':awayRank,'home':games[key].homeTeam,'homeRank':homeRank,'spread':spread.spread,'formattedSpread':spread.formattedSpread});
+          }
           count++;
         }
     }

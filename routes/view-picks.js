@@ -9,7 +9,7 @@ const request = require('request');
 var schedule=[];
 var winners=[];
 var count=0;
-var week="8";
+var week="12";
 var year="2020";
 var season=""+year+week;
 var all_games=[];
@@ -35,10 +35,15 @@ function winner_check(games) {
         if ((games[key].homeConference=="SEC" | games[key].homeConference=="Pac-12" | games[key].homeConference=="Big Ten" | games[key].homeConference=="ACC" | games[key].homeConference=="Big 12") &
       (games[key].awayConference=="SEC" | games[key].awayConference=="Pac-12" | games[key].awayConference=="Big Ten" | games[key].awayConference=="ACC" | games[key].awayConference=="Big 12")) {
           //var temp={'home_team':games[key].home_team,'home_points':games[key].home_points,'away_team':games[key].away_team,'away_points':games[key].away_points}
-          var caesar = games[key].lines.find(obj => {
+          var spread = games[key].lines.find(obj => {
             return obj.provider === "Bovada"
           })
-          all_games.push({'count':count,'homeTeam':games[key].homeTeam,'homeScore':games[key].homeScore,'awayTeam':games[key].awayTeam,'awayScore':games[key].awayScore,'spread':caesar.spread})
+          if (spread==undefined) {
+            continue;
+          }
+          else {
+            all_games.push({'count':count,'homeTeam':games[key].homeTeam,'homeScore':games[key].homeScore,'awayTeam':games[key].awayTeam,'awayScore':games[key].awayScore,'spread':spread.spread})
+          }
           count++;
         }
     }
