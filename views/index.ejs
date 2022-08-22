@@ -107,7 +107,7 @@
               </select>
             </div>
             <h4 style="text-decoration:underline;padding:10px;" align="center">Week <%= week %></h4>
-          <div class="table-responsive" style="padding-top:0;">
+          <div class="table-responsive" style="padding-top:0;" id="desktop">
           <table class="table table-hover table-striped thead-dark">
             <thead class="thead-dark">
               <tr>
@@ -120,11 +120,29 @@
             </thead>
           <% schedule.forEach(function(game) { %>
             <tr>
-              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td align="right"><sup><em style="font-size:0.5rem"><%= game.awayRank %></em></sup> <%= game.away %></td> <td align="center">at<br><em style="font-size:0.75rem;"><%= game.formattedSpread %></em></td> <td align="left"> <sup><em style="font-size:0.5rem;"><%= game.homeRank %></em></sup>&nbsp;<%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
+              <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td style="padding-left:0;padding-right:0" align="right"><sup><em style="font-size:0.5rem"><%= game.awayRank %></em></sup> <%= game.away %></td> <td align="center">at<br><em style="font-size:0.75rem;"><%= game.formattedSpread %></em></td> <td style="padding-left:0;padding-right:0" align="left"> <sup><em style="font-size:0.5rem;"><%= game.homeRank %></em></sup>&nbsp;<%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
             </tr>
           <% }); %>
         </table>
       </div>
+      <div class="table-responsive" style="padding-top:0;" id=mobile>
+        <table class="table table-hover table-striped thead-dark">
+          <thead class="thead-dark">
+            <tr>
+              <th><p align="center" style="margin:0"></p></th>
+              <th><p align="center" style="margin:0"></p></th>
+              <th><p align="center" style="margin:0">Matchup</p></th>
+              <th><p align="center" style="margin:0"></p></th>
+              <th><p align="center" style="margin:0"></p></th>
+            </tr>
+          </thead>
+        <% schedule.forEach(function(game) { %>
+          <tr>
+            <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.away %>" required></td> <td style="padding-left:0;padding-right:0" align="right"><sup><em style="font-size:0.5rem"><%= game.awayRank %></em></sup> <%= game.away %></td> <td align="center">at<br><em style="font-size:0.75rem;"><%= game.formattedSpread %></em></td> <td style="padding-left:0;padding-right:0" align="left"> <sup><em style="font-size:0.5rem;"><%= game.homeRank %></em></sup>&nbsp;<%= game.home %></td> <td align="center"><input type="Radio" name="<%= game.count %>" value="<%= game.home %>" required></td>
+          </tr>
+        <% }); %>
+      </table>
+    </div>
       <input type="submit" value="Submit Those Picks Boi" class="btn btn-danger">
         </form>
         </div>
