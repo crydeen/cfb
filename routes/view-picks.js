@@ -9,8 +9,8 @@ const request = require('request');
 var schedule=[];
 var winners=[];
 var count=0;
-var week="14";
-var year="2020";
+var week="1";
+var year="2022";
 var season=""+year+week;
 var all_games=[];
 var chase_picks={};
@@ -24,9 +24,20 @@ var evan_record={'win':0,'loss':0};
 var hunter_record={'win':0,'loss':0};
 var shreve_record={'win':0,'loss':0};
 
-request('https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+const api_lines = {
+  url: 'https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular',
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer qGMy31bko5LOfsxFPbNZwiFxUwKOw/7L0XCJAceVPuvIXGeE3hoD9gmuoZplQjZ3',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'json': 'true'
+  }
+}
+
+request(api_lines, (err, res, body) => {
   if (err) { return console.log(err); }
-  winner_check(body);
+  winner_check(JSON.parse(body));
 });
 
 function winner_check(games) {
@@ -148,7 +159,7 @@ router.get('/', function(req, res, next) {
     }
   });
   record_check();
-  res.render('view-picks', { title: 'Pick Viewer', winners:winners, week:week, chase_picks:chase_picks, drew_picks:drew_picks, evan_picks:evan_picks, hunter_picks:hunter_picks, shreve_picks:shreve_picks, chase_record:chase_record, drew_record:drew_record, evan_record:evan_record, hunter_record:hunter_record, shreve_record:shreve_record});
+  res.render('view-picks', { title: 'Pick Viewer', winners:winners, week:week, year:year, chase_picks:chase_picks, drew_picks:drew_picks, evan_picks:evan_picks, hunter_picks:hunter_picks, shreve_picks:shreve_picks, chase_record:chase_record, drew_record:drew_record, evan_record:evan_record, hunter_record:hunter_record, shreve_record:shreve_record});
 });
 
 /* Record Check Function. */

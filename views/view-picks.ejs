@@ -92,7 +92,7 @@
               <h6 style="padding-left:12px;">Year&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Week</h6>
 
               <select name="year">
-                <option>2019</option>
+                <option><%= year %></option>
               </select>
               <select name="week">
                 <% for(var i=1; i<=15; i++){ %>
@@ -118,7 +118,7 @@
                 </thead>
                 <% winners.forEach(function(game) { console.log(chase_picks[game.count] + " " +game.winner) %>
                   <tr>
-                    <td align="center"><%= game.count %></td>
+                    <td align="center"><%= game.count+1 %></td>
                     <td align="center"><%= chase_picks[game.count] %></td>
                     <td align="center"><%= drew_picks[game.count] %></td>
                     <td align="center"><%= evan_picks[game.count] %></td>

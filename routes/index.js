@@ -8,28 +8,48 @@ require('firebase/database');
 const request = require('request');
 var schedule = [];
 var count = 0;
-var week = "14";
-var year = "2020";
+var week = "1";
+var year = "2022";
 var season = ""+year+week;
 var name = '';
 var red = false;
 var isLoggedIn=false;
 var ap_rankings;
+const api_rankings = {
+  url: 'https://api.collegefootballdata.com/rankings?year='+year+'&week='+week+'&seasonType=regular',
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer qGMy31bko5LOfsxFPbNZwiFxUwKOw/7L0XCJAceVPuvIXGeE3hoD9gmuoZplQjZ3',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'json': 'true'
+  }
+}
+const api_lines = {
+  url: 'https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular',
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer qGMy31bko5LOfsxFPbNZwiFxUwKOw/7L0XCJAceVPuvIXGeE3hoD9gmuoZplQjZ3',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'json': 'true'
+  }
+}
 
-request('https://api.collegefootballdata.com/rankings?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+request(api_rankings, (err, res, body) => {
   if (err) { return console.log(err); }
-  rank_parse(body);
-  request('https://api.collegefootballdata.com/lines?year='+year+'&week='+week+'&seasonType=regular', { json: true }, (err, res, body) => {
+  //console.log('this is the response from rankings api: '+console.log(body))
+  rank_parse(JSON.parse(body));
+  request(api_lines, (err, res, body) => {
     if (err) { return console.log(err); }
-    game_list(body);
+    game_list(JSON.parse(body));
   });
 });
 
 function rank_parse(ranks) {
   for (var key in ranks) {
     if (ranks.hasOwnProperty(key)) {
-      // console.log(key + " -> " + JSON.stringify(ranks[key]));
-      console.log(key + " -> " + JSON.stringify(ranks[key]));
+      //console.log(key + " -> " + JSON.stringify(ranks[key]));
       ap_rankings = ranks[key].polls.find(obj => {
          return obj.poll === "AP Top 25"
       })

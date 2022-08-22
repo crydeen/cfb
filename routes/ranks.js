@@ -5,10 +5,10 @@ require('firebase/database');
 
 var record_list=[];
 var sort_list=[];
-var year='2020'
-var week='14'
+var year='2022'
+var week='1'
 var count=0
-var first_week='04'
+var first_week='1'
 var counts=[]
 
 /* GET users listing. */
